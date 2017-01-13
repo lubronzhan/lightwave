@@ -43,6 +43,11 @@ public class PersonDetail extends PrincipalDetail implements Serializable{
     private final String lastName;
 
     /**
+     * User parameter; optional field
+     */
+    private final String userParameters;
+
+    /**
      * Timestamp for user password last reset value is in second since unix epoch
      * time 00:00:00 UTC on 1 January 1970 (or 1970-01-01T00:00:00Z ISO 8601)
      * <p>
@@ -63,6 +68,7 @@ public class PersonDetail extends PrincipalDetail implements Serializable{
         private String userPrincipalName;
         private String firstName;
         private String lastName;
+        private String userParameters;
         private long   pwdLastSet = UNSPECIFIED_TS_VALUE;
         private long   pwdLifeTime  = UNSPECIFIED_PASSWORD_LIFE_TIME_VALUE;
 
@@ -93,6 +99,12 @@ public class PersonDetail extends PrincipalDetail implements Serializable{
         public Builder lastName(String aLastName)
         {
             lastName = aLastName;
+            return this;
+        }
+
+        public Builder userParameters(String aUserParameters)
+        {
+            userParameters = aUserParameters;
             return this;
         }
 
@@ -149,6 +161,7 @@ public class PersonDetail extends PrincipalDetail implements Serializable{
         lastName     = builder.lastName;
         pwdLastSet   = builder.pwdLastSet;
         pwdLifeTime    = builder.pwdLifeTime;
+        userParameters = builder.userParameters;
     }
 
     /**
@@ -183,6 +196,15 @@ public class PersonDetail extends PrincipalDetail implements Serializable{
     }
 
     /**
+     * Retrieve user's userParameters
+     *
+     * @return userParameters or {@code null} if not specified
+     */
+    public String getUserParameters() {
+        return this.userParameters;
+    }
+
+    /**
      * Retrive user's pwd last timestamp
      * The timestamp is always in seconds from Unix epoch time 01.01.1970UTC
      * @return value in seconds or {@code UNKNOWN_TS_VALUE}
@@ -214,6 +236,7 @@ public class PersonDetail extends PrincipalDetail implements Serializable{
        result = prime * result
                + ((userPrincipalName == null) ? 0 : userPrincipalName.hashCode());
        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+       result = prime * result + ((userParameters == null) ? 0 : userParameters.hashCode());
        result = prime * result + (int)(pwdLastSet^(pwdLastSet>>>32));
        result = prime * result + (int)(pwdLifeTime^(pwdLifeTime>>>32));
        return result;
@@ -236,6 +259,7 @@ public class PersonDetail extends PrincipalDetail implements Serializable{
             && ObjectUtils.equals(firstName, other.firstName)
             && ObjectUtils.equals(lastName, other.lastName)
             && ObjectUtils.equals(userPrincipalName, other.userPrincipalName)
+            && ObjectUtils.equals(userParameters, other.userParameters)
             && pwdLastSet == other.pwdLastSet
             && pwdLifeTime == other.pwdLifeTime;
     }
@@ -246,6 +270,6 @@ public class PersonDetail extends PrincipalDetail implements Serializable{
     @Override
     protected Object[] getDetailFields() {
         return new Object[] { getDescription(), getEmailAddress(),
-                getFirstName(), getLastName(), getPwdLastSet(), getPwdLifeTime()};
+                getFirstName(), getLastName(), getUserParameters(), getPwdLastSet(), getPwdLifeTime()};
     }
 }

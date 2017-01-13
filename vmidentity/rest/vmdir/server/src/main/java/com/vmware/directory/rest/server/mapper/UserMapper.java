@@ -109,6 +109,7 @@ public final class UserMapper {
                .firstName(personDTO.getDetails().getFirstName())
                .lastName(personDTO.getDetails().getLastName())
                .userPrincipalName(personDTO.getDetails().getUPN())
+               .userParameters(personDTO.getDetails().getUserParameters())
                .build();
            } else {
                personDetail = new PersonDetail.Builder().build();

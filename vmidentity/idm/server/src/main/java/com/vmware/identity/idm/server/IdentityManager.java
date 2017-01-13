@@ -5445,6 +5445,7 @@ implements IIdentityManager
             checkInvalidCharForUserData(detail.getFirstName(), INVALID_CHARS_FOR_USER_DETAIL);
             checkInvalidCharForUserData(detail.getLastName(), INVALID_CHARS_FOR_USER_DETAIL);
             checkInvalidCharForUserData(detail.getDescription(), INVALID_CHARS_FOR_USER_DETAIL);
+            checkInvalidCharForUserData(detail.getUserParameters(), INVALID_CHARS_FOR_USER_DETAIL);
 
             ValidateUtil.validateNotNull(hasedPassword, "Hashed Password");
 

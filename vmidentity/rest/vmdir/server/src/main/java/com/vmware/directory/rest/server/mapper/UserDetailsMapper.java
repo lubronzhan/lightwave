@@ -42,6 +42,7 @@ public final class UserDetailsMapper {
                                   .emailAddress(userDetails.getEmail())
                                   .description(userDetails.getDescription())
                                   .userPrincipalName(userDetails.getUPN())
+                                  .userParameters(userDetails.getUserParameters())
                                   .build();
         } catch (Exception e) {
             throw new DTOMapperException("Unable to convert PersonDetailDTO to PersonDetail", e);
@@ -62,6 +63,7 @@ public final class UserDetailsMapper {
                                    personDetail.getUserPrincipalName(),
                                    personDetail.getFirstName(),
                                    personDetail.getLastName(),
-                                   personDetail.getDescription());
+                                   personDetail.getDescription(),
+                                   personDetail.getUserParameters());
     }
 }

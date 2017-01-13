@@ -256,6 +256,7 @@ public class VMwareDirectoryProvider extends BaseLdapProvider implements
     private static final String ATTR_FIRST_NAME = "givenName";
     private static final String ATTR_EMAIL_ADDRESS = "mail";
     private static final String ATTR_USER_PASSWORD = "userPassword";
+    private static final String ATTR_USER_PARAMETERS = "userParameters";
     private static final String ATTR_PWD_LAST_SET = "pwdLastSet";
     private static final String ATTR_DESCRIPTION = "description";
     private static final String ATTR_SVC_DESCRIPTION = "description";
@@ -3057,6 +3058,7 @@ public class VMwareDirectoryProvider extends BaseLdapProvider implements
             LdapMod attrPassword = null;
             LdapMod attrPasswordSchema = null;
             LdapMod attrUpn = null;
+            LdapMod attrUserParameters = null;
 
             objectClass =
                     new LdapMod(LdapModOperation.ADD, ATTR_NAME_OBJECTCLASS,
@@ -3119,6 +3121,15 @@ public class VMwareDirectoryProvider extends BaseLdapProvider implements
                         new LdapMod(LdapModOperation.ADD, ATTR_DESCRIPTION,
                                 new LdapValue[] { LdapValue.fromString(desc) });
                 attributeList.add(attrDescription);
+            }
+
+            String userParameters = detail.getUserParameters();
+            if (!ServerUtils.isNullOrEmpty(userParameters))
+            {
+                attrUserParameters =
+                        new LdapMod(LdapModOperation.ADD, ATTR_USER_PARAMETERS,
+                                new LdapValue[] { LdapValue.fromString(userParameters) });
+                attributeList.add(attrUserParameters);
             }
 
             // default enabled and not locked when adding a user

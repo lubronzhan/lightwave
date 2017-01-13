@@ -36,6 +36,7 @@ public class UserDetailsDTO extends DTO {
     private final String firstName;
     private final String lastName;
     private final String description;
+    private final String userParameters;
 
     /**
      * Construct a {@code UserDetailsDTO} with its various fields.
@@ -46,12 +47,13 @@ public class UserDetailsDTO extends DTO {
      * @param lastName the last name of the user.
      * @param description the description of the user.
      */
-    public UserDetailsDTO(String email, String upn, String firstName, String lastName, String description) {
+    public UserDetailsDTO(String email, String upn, String firstName, String lastName, String description, String userParameters) {
         this.email = email;
         this.upn = upn;
         this.firstName = firstName;
         this.lastName = lastName;
         this.description = description;
+        this.userParameters = userParameters;
     }
 
     /**
@@ -90,6 +92,15 @@ public class UserDetailsDTO extends DTO {
         return lastName;
     }
 
+   /**
+     * Get the userParameters.
+     *
+     * @return the userParameters.
+     */
+    public String getUserParameters() {
+        return userParameters;
+    }
+
     /**
      * Get the description of the user.
      *
@@ -122,6 +133,7 @@ public class UserDetailsDTO extends DTO {
         private String firstName;
         private String lastName;
         private String description;
+        private String userParameters;
 
         public Builder withEmail(String emailAddress) {
             this.email = emailAddress;
@@ -148,9 +160,15 @@ public class UserDetailsDTO extends DTO {
             return this;
         }
 
+        public Builder withUserParameters(String userParameters) {
+            this.userParameters = userParameters;
+            return this;
+        }
+
+
         public UserDetailsDTO build() {
             return new UserDetailsDTO(email, upn,
-                    firstName, lastName, description);
+                    firstName, lastName, description, userParameters);
         }
     }
 
