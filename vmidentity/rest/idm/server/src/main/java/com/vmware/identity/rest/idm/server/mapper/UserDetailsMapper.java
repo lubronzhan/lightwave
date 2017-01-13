@@ -62,6 +62,7 @@ public final class UserDetailsMapper {
                                    personDetail.getUserPrincipalName(),
                                    personDetail.getFirstName(),
                                    personDetail.getLastName(),
-                                   personDetail.getDescription());
+                                   personDetail.getDescription(),
+                                   personDetail.getUserParameters());
     }
 }
