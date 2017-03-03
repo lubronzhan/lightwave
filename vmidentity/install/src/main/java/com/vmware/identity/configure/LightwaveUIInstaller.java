@@ -141,6 +141,7 @@ public class LightwaveUIInstaller implements IPlatformComponentInstaller {
 		String data = "{ " +
 		      "\"redirectUris\": [" +
 		        "\"https://" + hostname + "/lightwaveui/Home\"" +
+		      ", \"https://" + hostname + ":2443/lightwaveui/Home\"" +
 		      "]," +
 		      "\"tokenEndpointAuthMethod\": \"none\"," +
 		      "\"postLogoutRedirectUris\": [" +
