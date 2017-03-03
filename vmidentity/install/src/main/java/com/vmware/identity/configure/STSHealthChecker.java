@@ -48,7 +48,7 @@ public class STSHealthChecker {
     private static final String REST_IDM = "/idm/";
     private static final String OPENIDCONNECT = "/openidconnect/jwks";
     private static final String STS = "/sts/STSService";
-    private static final String STS_HTTP_PORT = "443";
+    private static final String STS_HTTP_PORT = "2443";
     private static final String STS_BASE_URL = "https://%s:" + STS_HTTP_PORT;
     private static final String VKS_KEYSTORE_INSTANCE = "VKS";
     private static final String VKS_KEYSTORE_NAME = "TRUSTED_ROOTS";

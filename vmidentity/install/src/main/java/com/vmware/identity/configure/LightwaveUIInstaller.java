@@ -97,7 +97,6 @@ public class LightwaveUIInstaller implements IPlatformComponentInstaller {
 
     @Override
     public void install() throws Exception {
-    	
     	String servername = params.getHostname();
     	String domain = params.getDomainName();
     	String username = params.getUsername();
@@ -122,11 +121,14 @@ public class LightwaveUIInstaller implements IPlatformComponentInstaller {
 		};	
 		
 	private String authenticate(String hostname, String domain, String username, String password){
-		String openIdConnectUri = "https://" + hostname + "/openidconnect/token/" + domain;
+
+
+		String openIdConnectUri = "https://" + hostname + ":2443/openidconnect/token/" + domain;
 		String data = "grant_type=password&username=" + username + "@" + domain + "&password=" + password + "&" + 
-					  "scope=openid+offline_access+id_groups+at_groups+rs_admin_server";
+			  "scope=openid+offline_access+id_groups+at_groups+rs_admin_server";
 		String response = doPost(openIdConnectUri, data, null);
-		
+
+			
 		if(response != null){
 			String[] parts = response.split(",");
 			if(parts != null && parts.length > 1){
@@ -137,16 +139,18 @@ public class LightwaveUIInstaller implements IPlatformComponentInstaller {
 	}
 
 	private String registerOidc(String hostname, String domain, String token){
-		String oidcClientUri = "https://" + hostname + "/idm/tenant/" + domain + "/oidcclient";
+		String oidcClientUri = "https://" + hostname + ":2443/idm/tenant/" + domain + "/oidcclient";
 		String data = "{ " +
 		      "\"redirectUris\": [" +
 		        "\"https://" + hostname + "/lightwaveui/Home\"" +
+		      ", \"https://" + hostname + ":2443/lightwaveui/Home\"" +
 		      "]," +
 		      "\"tokenEndpointAuthMethod\": \"none\"," +
 		      "\"postLogoutRedirectUris\": [" +
 		      "\"https://" + hostname + "/lightwaveui\"" +
+		    ", \"https://" + hostname + ":2443/lightwaveui\"" +
 		      "]," +
-		      "\"logoutUri\": \"https://" + hostname + "/lightwaveui\"" +
+		      "\"logoutUri\": \"https://" + hostname + ":2443/lightwaveui\"" +
 		 " }";
 		String response = doPost(oidcClientUri, data, token);
 		return response;
@@ -304,12 +308,10 @@ public class LightwaveUIInstaller implements IPlatformComponentInstaller {
 		try {
 			
 			log.info("Started regsitration for Oidc against tenant : " + domain);
-			
 			String token = authenticate(hostname, domain, username, password);
 			String oidc = registerOidc(hostname, domain, token);
 
 			log.info("Oidc successfully added. Details - " + oidc);
-			
 			String[] parts = oidc.split(",");
 			String clientId = "";
 			Boolean found = false;
